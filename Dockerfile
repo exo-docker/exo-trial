@@ -21,7 +21,6 @@ ENV MONGO_VERSION 3.0
 ENV EXO_APP_DIR     /opt/exo
 ENV EXO_CONF_DIR    /etc/exo
 ENV EXO_DATA_DIR    /srv/exo
-ENV EXO_DATA_DIR    /srv/exo
 ENV EXO_LOG_DIR     /var/log/exo
 ENV EXO_TMP_DIR     /tmp/exo-tmp
 ENV MONGO_DATA_DIR  /srv/mongodb
@@ -87,7 +86,5 @@ ADD conf/chat.properties      /etc/exo/chat.properties
 
 RUN chmod +x /etc/service/mongod/run
 RUN chmod +x /etc/service/exo/run
-
-VOLUME ["/var/log/exo", "/srv/exo", "/srv/mongodb"]
 
 EXPOSE 8080
