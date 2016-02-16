@@ -2,6 +2,16 @@
 #
 # Start eXo Platform trial edition
 
+if [ ! -d ${EXO_DATA_DIR} ]; then
+  echo "# Creating eXo data directory : ${EXO_DATA_DIR}" | tee -a /var/log/exo/platform.log
+  mkdir -p ${EXO_DATA_DIR}
+  chown ${EXO_USER}:${EXO_GROUP} ${EXO_DATA_DIR}
+fi
+if [ ! -d ${EXO_DATA_DIR}/.eXo ]; then
+  mkdir -p ${EXO_DATA_DIR}/.eXo
+  chown ${EXO_USER}:${EXO_GROUP} ${EXO_DATA_DIR}/.eXo
+fi
+
 touch /var/log/exo/platform.log
 chown exo:exo /var/log/exo/platform.log
 
