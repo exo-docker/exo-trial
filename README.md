@@ -60,6 +60,27 @@ In a running container execute the following command:
 docker exec -ti exo /sbin/setuser exo /opt/exo/current/addon list --installed
 ```
 
+### override eXo Platform add-ons catalog
+
+For add-on development purpose, it could be useful to point the add-on manager to another catalog.
+You can use the ``EXO_ADDONS_CATALOG_URL`` environment variable for that :
+
+```
+# Pointing to a remote catalog
+docker run -d -p 8080:8080 --name=exo \
+ -e EXO_ADDONS_CATALOG_URL="http://my.enterprise.com/catalog.json" \
+ -e EXO_ADDONS_LIST="my-enterprise-addon:1.0.0" \
+ exoplatform/exo-trial:latest
+
+# Pointing to a catalog on the local filesystem
+docker run -d -p 8080:8080 --name=exo \
+ -e EXO_ADDONS_CATALOG_URL="file:///etc/exo/catalog.json" \
+ -e EXO_ADDONS_LIST="my-enterprise-addon:1.0.0" \
+ -v /path/to/catlog.json:/etc/exo/catalog.json:ro \
+ exoplatform/exo-trial:latest
+```
+
+
 ### customize some eXo Platform settings
 
 As explained in [eXo Platform documentation](https://www.exoplatform.com/docs/PLF43/PLFAdminGuide.InstallationAndStartup.CustomizingEnvironmentVariables.html) you can customize several aspects of eXo platform by settings environment variables.

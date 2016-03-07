@@ -29,13 +29,18 @@ echo "# ------------------------------------ #"
 echo "# eXo add-ons installation start ..."
 echo "# ------------------------------------ #"
 
+if [ ! -z "${EXO_ADDONS_CATALOG_URL}" ]; then
+  echo "The add-on manager catalog url was overriden with : ${EXO_ADDONS_CATALOG_URL}"
+  _ADDON_MGR_OPTIONS="--catalog=${EXO_ADDONS_CATALOG_URL}"
+fi
+
 if [ -z "${EXO_ADDONS_LIST}" ]; then
   echo "# no add-on to install from EXO_ADDONS_LIST environment variable."
 else
   echo "# installing add-ons from EXO_ADDONS_LIST environment variable:"
   echo ${EXO_ADDONS_LIST} | tr ',' '\n' | while read _addon ; do
       # Install addon
-      ${EXO_APP_DIR}/current/addon install ${_addon} --force --batch-mode
+      ${EXO_APP_DIR}/current/addon install ${_ADDON_MGR_OPTIONS} ${_addon} --force --batch-mode
   done
 fi
 echo "# ------------------------------------ #"
@@ -50,7 +55,7 @@ if [ -f "/etc/exo/addons-list.conf" ]; then
 #    _addon_char=$(echo "$_addon" | awk  '{ string=substr($0, 1, 1); print string; }' )
 #    [ "$_addon_char" = '#' ] && continue
     # Install addon
-    ${EXO_APP_DIR}/current/addon install ${_addon} --force --batch-mode
+    ${EXO_APP_DIR}/current/addon install ${_ADDON_MGR_OPTIONS} ${_addon} --force --batch-mode
   done < "$_addons_list"
 else
   echo "# no add-on to install from addons-list.conf because /etc/exo/addons-list.conf file is absent."
