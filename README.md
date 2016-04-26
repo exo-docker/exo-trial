@@ -1,5 +1,5 @@
 # eXo Platform Trial Docker container
-[![](https://badge.imagelayers.io/exoplatform/exo-trial:latest.svg)](https://imagelayers.io/?images=exoplatform/exo-trial:latest 'Get your own badge on imagelayers.io')
+[![Docker Stars](https://img.shields.io/docker/stars/exoplatform/exo-trial.svg?maxAge=2592000)]() - [![Docker Pulls](https://img.shields.io/docker/pulls/exoplatform/exo-trial.svg?maxAge=2592000)]()
 
 * eXo Platform Trial edition
 * Ubuntu
