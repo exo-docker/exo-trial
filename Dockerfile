@@ -7,16 +7,19 @@
 # Build:    docker build -t exoplatform/exo-trial .
 #
 # Run:      docker run -ti --name=exo exoplatform/exo-trial:latest
-#           docker run -d  --name=exo -p 80:8080 exoplatform/exo-trial:latest
+#           docker run -d  --name=exo -p 8080:8080 exoplatform/exo-trial:latest
+#           docker run -d --rm --name=exo -p 8080:8080 -v exo_trial:/srv exoplatform/exo-trial:latest
+#           docker run -d --rm --name=exo -p 8080:8080 -v exo_trial_data:/srv -v exo_trial_logs:/var/log/exo exoplatform/exo-trial:latest
 
 FROM       exoplatform/base-jdk:jdk8
-MAINTAINER DROUET Frederic <fdrouet+docker@exoplatform.com>
+MAINTAINER eXo Platform <docker@exoplatform.com>
 
 # Environment variables
-ENV EXO_VERSION   4.3.0
+ENV EXO_VERSION   4.4.1
 ENV EXO_EDITION   trial
-ENV EXO_DOWNLOAD  http://storage.exoplatform.org/downloads/Releases/Platform/4.3/${EXO_VERSION}/platform-${EXO_EDITION}-${EXO_VERSION}.zip
-ENV MONGO_VERSION 3.0
+ENV EXO_DOWNLOAD  http://downloads.exoplatform.org/public/releases/platform/4.4/${EXO_VERSION}/platform-${EXO_EDITION}-${EXO_VERSION}.zip
+ENV MONGO_VERSION 3.2
+ENV MONGO_REPO_KEY EA312927
 
 ENV EXO_APP_DIR     /opt/exo
 ENV EXO_CONF_DIR    /etc/exo
@@ -34,7 +37,7 @@ RUN useradd --create-home --user-group --shell /bin/bash ${EXO_USER}
 RUN echo "exo   ALL = NOPASSWD: ALL" > /etc/sudoers.d/exo && chmod 440 /etc/sudoers.d/exo
 
 # Install some useful or needed tools
-RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10
+RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv ${MONGO_REPO_KEY}
 RUN echo "deb http://repo.mongodb.org/apt/ubuntu $(lsb_release -cs)/mongodb-org/${MONGO_VERSION} multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-${MONGO_VERSION}.list
 
 RUN apt-get -qq update && \

@@ -23,6 +23,12 @@ docker exec -ti exo tail -f /var/log/exo/platform.log
 docker exec -ti exo tail -f /var/log/mongodb/mongod.log
 ```
 
+* keep data when the container is removed
+
+```
+docker run -d --rm -p 8080:8080 -v exo_trial_data:/srv -v exo_trial_logs:/var/log --name=exo exoplatform/exo-trial:latest
+```
+
 ### install eXo Platform add-ons
 
 There is 2 ways to install add-ons in the container during the startup time:
@@ -83,7 +89,7 @@ docker run -d -p 8080:8080 --name=exo \
 
 ### customize some eXo Platform settings
 
-As explained in [eXo Platform documentation](https://www.exoplatform.com/docs/PLF43/PLFAdminGuide.InstallationAndStartup.CustomizingEnvironmentVariables.html) you can customize several aspects of eXo platform by settings environment variables.
+As explained in [eXo Platform documentation](https://www.exoplatform.com/docs/PLF44/PLFAdminGuide.InstallationAndStartup.CustomizingEnvironmentVariables.html) you can customize several aspects of eXo platform by settings environment variables.
 
 You can just pass environment variables:
 
@@ -102,5 +108,6 @@ docker run -d -p 8080:8080 --name=exo -v ~/setenv-customize.sh:/opt/exo/current/
 
 |    Image                        |  JDK  |   eXo Platform           | Size
 |---------------------------------|-------|--------------------------|-----
-|exoplatform/exo-trial:latest     |   8   | 4.3.0 Trial edition      | [![](https://badge.imagelayers.io/exoplatform/exo-trial:latest.svg)](https://imagelayers.io/?images=exoplatform/exo-trial:latest 'Get your own badge on imagelayers.io')
+|exoplatform/exo-trial:latest     |   8   | 4.4.1 Trial edition      | [![](https://badge.imagelayers.io/exoplatform/exo-trial:latest.svg)](https://imagelayers.io/?images=exoplatform/exo-trial:latest 'Get your own badge on imagelayers.io')
+|exoplatform/exo-trial:4.4        |   8   | 4.4.1 Trial edition      | [![](https://badge.imagelayers.io/exoplatform/exo-trial:4.4.svg)](https://imagelayers.io/?images=exoplatform/exo-trial:4.4 'Get your own badge on imagelayers.io')
 |exoplatform/exo-trial:4.3        |   8   | 4.3.0 Trial edition      | [![](https://badge.imagelayers.io/exoplatform/exo-trial:4.3.svg)](https://imagelayers.io/?images=exoplatform/exo-trial:4.3 'Get your own badge on imagelayers.io')
