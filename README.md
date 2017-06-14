@@ -13,13 +13,13 @@ The eXo Platform Trial edition Docker image support `HSQLDB` only (for testing).
 ## Quick start
 
 The prerequisites are :
-* Docker daemon version 12+ + internet access
+* Docker daemon version 12+ and an internet access
 * 4GB of available RAM + 1GB of disk
 
 
 The most basic way to start eXo Platform Trial edition for *evaluation* purpose is to execute
 ```
-docker run -v exo_trial_data:/srv -p 8080:8080 exoplatform/exo-trial
+docker run --rm -v exo_trial_data:/srv -p 8080:8080 exoplatform/exo-trial
 ```
 and then waiting the log line which say that the server is started
 ```
@@ -101,13 +101,13 @@ You can use the ``EXO_ADDONS_CATALOG_URL`` environment variable for that :
 
 ```
 # Pointing to a remote catalog
-docker run -d -p 8080:8080 --name=exo \
+docker run -d -p 8080:8080 \
  -e EXO_ADDONS_CATALOG_URL="http://my.enterprise.com/catalog.json" \
  -e EXO_ADDONS_LIST="my-enterprise-addon:1.0.0" \
  exoplatform/exo-trial
 
 # Pointing to a catalog on the local filesystem
-docker run -d -p 8080:8080 --name=exo \
+docker run -d -p 8080:8080 \
  -e EXO_ADDONS_CATALOG_URL="file:///etc/exo/catalog.json" \
  -e EXO_ADDONS_LIST="my-enterprise-addon:1.0.0" \
  -v /path/to/catlog.json:/etc/exo/catalog.json:ro \
