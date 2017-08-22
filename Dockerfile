@@ -15,7 +15,8 @@ FROM       exoplatform/base-jdk:jdk8
 MAINTAINER eXo Platform <docker@exoplatform.com>
 
 # Environment variables
-ENV EXO_VERSION   4.4.3
+ENV EXO_VERSION     5.0.0-M18
+ENV ADDONS          "exo-enterprise-skin:5.0.0-M18"
 ENV MONGO_VERSION   3.4
 ENV MONGO_REPO_KEY  0C49F3730359A14518585931BC711F9BA15703C6
 
@@ -59,13 +60,17 @@ RUN mkdir -p ${EXO_DATA_DIR}    && chown ${EXO_USER}:${EXO_GROUP} ${EXO_DATA_DIR
   && mkdir -p ${MONGO_DATA_DIR}  && chown mongodb:mongodb ${MONGO_DATA_DIR}
 
 # Install eXo Platform
-RUN curl -L -o /srv/downloads/eXo-Platform-trial-${EXO_VERSION}.zip http://downloads.exoplatform.org/public/releases/platform/4.4/${EXO_VERSION}/platform-trial-${EXO_VERSION}.zip \
+RUN EXO_VERSION_SHORT=$(echo ${EXO_VERSION} | awk -F "\." '{ print $1"."$2}'); \
+  DOWNLOAD_URL="https://downloads.exoplatform.org/public/releases/platform/${EXO_VERSION_SHORT}/${EXO_VERSION}/platform-trial-${EXO_VERSION}.zip"; \
+  curl -L -o /srv/downloads/eXo-Platform-trial-${EXO_VERSION}.zip ${DOWNLOAD_URL} \
   && unzip -q /srv/downloads/eXo-Platform-trial-${EXO_VERSION}.zip -d /srv/downloads/ \
   && rm -f /srv/downloads/eXo-Platform-trial-${EXO_VERSION}.zip \
   && mv /srv/downloads/platform-${EXO_VERSION}-trial ${EXO_APP_DIR} \
   && chown -R ${EXO_USER}:${EXO_GROUP} ${EXO_APP_DIR} \
   && ln -s ${EXO_APP_DIR}/gatein/conf /etc/exo \
   && rm -rf ${EXO_APP_DIR}/logs && ln -s ${EXO_LOG_DIR} ${EXO_APP_DIR}/logs
+
+RUN for a in ${ADDONS}; do echo "Installing addon $a"; /opt/exo/addon install $a; done
 
 # Install Docker customization file
 ADD scripts/setenv-docker-customize.sh ${EXO_APP_DIR}/bin/setenv-docker-customize.sh
