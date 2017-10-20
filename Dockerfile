@@ -15,8 +15,8 @@ FROM       exoplatform/base-jdk:jdk8
 MAINTAINER eXo Platform <docker@exoplatform.com>
 
 # Environment variables
-ENV EXO_VERSION     5.0.0-M26
-ENV ADDONS          "exo-enterprise-skin:5.0.0-M26"
+ENV EXO_VERSION     5.0.0-M27
+ENV ADDONS          "exo-enterprise-skin:5.0.0-M27"
 ENV MONGO_VERSION   3.4
 ENV MONGO_REPO_KEY  0C49F3730359A14518585931BC711F9BA15703C6
 
