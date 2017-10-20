@@ -34,8 +34,8 @@ ENV EXO_GROUP ${EXO_USER}
 RUN rm -f /bin/sh && ln -s /bin/bash /bin/sh
 
 # add our user and group first to make sure their IDs get assigned consistently, regardless of whatever dependencies get added
+# and give him all rights
 RUN useradd --create-home --user-group --shell /bin/bash ${EXO_USER} \
-  # giving all rights to eXo user
   && echo "exo   ALL = NOPASSWD: ALL" > /etc/sudoers.d/exo && chmod 440 /etc/sudoers.d/exo
 
 # Install some useful or needed tools
@@ -53,11 +53,11 @@ RUN apt-get -qq update \
 
 # Create needed directories
 RUN mkdir -p ${EXO_DATA_DIR}    && chown ${EXO_USER}:${EXO_GROUP} ${EXO_DATA_DIR} \
-  # && mkdir ${EXO_DATA_DIR}/.eXo/   && chown ${EXO_USER}:${EXO_GROUP} ${EXO_DATA_DIR}/.eXo \
-  # && ln -s ${EXO_DATA_DIR}/.eXo    /home/${EXO_USER}/.eXo \
   && mkdir -p ${EXO_TMP_DIR}     && chown ${EXO_USER}:${EXO_GROUP} ${EXO_TMP_DIR} \
   && mkdir -p ${EXO_LOG_DIR}     && chown ${EXO_USER}:${EXO_GROUP} ${EXO_LOG_DIR} \
   && mkdir -p ${MONGO_DATA_DIR}  && chown mongodb:mongodb ${MONGO_DATA_DIR}
+  # && mkdir ${EXO_DATA_DIR}/.eXo/   && chown ${EXO_USER}:${EXO_GROUP} ${EXO_DATA_DIR}/.eXo \
+  # && ln -s ${EXO_DATA_DIR}/.eXo    /home/${EXO_USER}/.eXo \
 
 # Install eXo Platform
 RUN EXO_VERSION_SHORT=$(echo ${EXO_VERSION} | awk -F "\." '{ print $1"."$2}'); \
