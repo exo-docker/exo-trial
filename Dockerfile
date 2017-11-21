@@ -11,8 +11,8 @@
 #           docker run -d --rm -p 8080:8080 -v exo_trial:/srv exoplatform/exo-trial
 #           docker run -d --rm -p 8080:8080 -v exo_trial_data:/srv -v exo_trial_logs:/var/log/exo exoplatform/exo-trial
 
-FROM       exoplatform/base-jdk:jdk8
-MAINTAINER eXo Platform <docker@exoplatform.com>
+FROM  exoplatform/base-jdk:jdk8
+LABEL maintainer="eXo Platform <docker@exoplatform.com>"
 
 # Environment variables
 ENV EXO_VERSION   4.4.3
