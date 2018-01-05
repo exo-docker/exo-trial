@@ -72,7 +72,7 @@ To install add-ons in the container, provide a commas separated list of add-ons 
 ```
 docker run -d \
     -p 8080:8080 \
-    -e EXO_ADDONS_LIST="exo-answers:1.2.1:exo-web-pack:1.1.1" \
+    -e EXO_ADDONS_LIST="exo-answers:1.2.1,exo-web-pack:1.1.1" \
     exoplatform/exo-trial
 ```
 
