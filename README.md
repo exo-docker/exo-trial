@@ -5,10 +5,10 @@ The eXo Platform Trial edition Docker image support `HSQLDB` only (for testing).
 
 |    Image                        |  JDK  |   eXo Platform           
 |---------------------------------|-------|--------------------------
-|exoplatform/exo-trial:develop    |   8   | 4.4.3 Trial edition      
-|exoplatform/exo-trial:latest     |   8   | 4.4.3 Trial edition      
-|exoplatform/exo-trial:5.0        |   8   | 5.0.0-Mx Trial edition (latest release)
-|exoplatform/exo-trial:4.4        |   8   | 4.4.3 Trial edition      
+|exoplatform/exo-trial:latest     |   8   | 5.0.0 Trial edition (latest release)      
+|exoplatform/exo-trial:5.x        |   8   | 5.x   Trial edition 
+|exoplatform/exo-trial:5.0        |   8   | 5.0.0 Trial edition (latest release)
+|exoplatform/exo-trial:4.4        |   8   | 4.4.4 Trial edition      
 |exoplatform/exo-trial:4.3        |   8   | 4.3.0 Trial edition      
 
 ## Quick start
@@ -117,7 +117,7 @@ docker run -d -p 8080:8080 \
 
 ### customize some eXo Platform settings
 
-As explained in [eXo Platform documentation](https://www.exoplatform.com/docs/PLF44/PLFAdminGuide.InstallationAndStartup.CustomizingEnvironmentVariables.html) you can customize several aspects of eXo platform by settings environment variables :
+As explained in [eXo Platform documentation](https://www.exoplatform.com/docs/PLF50/PLFAdminGuide.InstallationAndStartup.CustomizingEnvironmentVariables.html) you can customize several aspects of eXo platform by settings environment variables :
 
 ```
 docker run -d \
