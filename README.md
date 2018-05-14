@@ -5,7 +5,7 @@ The eXo Platform Trial edition Docker image support `HSQLDB` only (for testing).
 
 |    Image                        |  JDK  |   eXo Platform           
 |---------------------------------|-------|--------------------------
-|exoplatform/exo-trial:latest     |   8   | 5.x   Trial edition (latest milestone)
+|exoplatform/exo-trial:latest     |   8   | 5.0.0 Trial edition (latest release)
 |exoplatform/exo-trial:5.1        |   8   | 5.x   Trial edition (latest milestone) 
 |exoplatform/exo-trial:5.0        |   8   | 5.0.0 Trial edition (latest release)
 |exoplatform/exo-trial:4.4        |   8   | 4.4.4 Trial edition      
