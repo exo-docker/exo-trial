@@ -1,36 +1,41 @@
 # eXo Platform Trial Docker image
-[![Docker Stars](https://img.shields.io/docker/stars/exoplatform/exo-trial.svg)]() - [![Docker Pulls](https://img.shields.io/docker/pulls/exoplatform/exo-trial.svg)]()
+
+[Docker Stars](https://img.shields.io/docker/stars/exoplatform/exo-trial.svg) - [Docker Pulls](https://img.shields.io/docker/pulls/exoplatform/exo-trial.svg)
 
 The eXo Platform Trial edition Docker image support `HSQLDB` only (for testing).
 
-|    Image                        |  JDK  |   eXo Platform           
+|    Image                        |  JDK  |   eXo Platform
 |---------------------------------|-------|--------------------------
 |exoplatform/exo-trial:latest     |   8   | 5.0.0 Trial edition (latest release)
-|exoplatform/exo-trial:5.1        |   8   | 5.x   Trial edition (latest milestone) 
+|exoplatform/exo-trial:5.1        |   8   | 5.x   Trial edition (latest milestone)
 |exoplatform/exo-trial:5.0        |   8   | 5.0.0 Trial edition (latest release)
-|exoplatform/exo-trial:4.4        |   8   | 4.4.4 Trial edition      
-|exoplatform/exo-trial:4.3        |   8   | 4.3.0 Trial edition      
+|exoplatform/exo-trial:4.4        |   8   | 4.4.4 Trial edition
+|exoplatform/exo-trial:4.3        |   8   | 4.3.0 Trial edition
 
 ## Quick start
 
 The prerequisites are :
-* Docker daemon version 12+ and an internet access
-* 4GB of available RAM + 1GB of disk
 
+- Docker daemon version 12+ and an internet access
+- 4GB of available RAM + 1GB of disk
 
 The most basic way to start eXo Platform Trial edition for *evaluation* purpose is to execute
-```
+
+```bash
 docker run --rm -v exo_trial_data:/srv -p 8080:8080 exoplatform/exo-trial
 ```
+
 and then waiting the log line which say that the server is started
-```
+
+```bash
 2017-05-22 10:49:30,176 | INFO  | Server startup in 83613 ms [org.apache.catalina.startup.Catalina<main>]
 ```
-When ready just go to http://localhost:8080 and follow the instructions ;-)
+
+When ready just go to <http://localhost:8080> and follow the instructions ;-)
 
 ## Configuration options
 
-## JVM
+### JVM
 
 The standard eXo Platform environment variables can be used :
 
@@ -41,7 +46,7 @@ The standard eXo Platform environment variables can be used :
 
 INFO: This list is not exhaustive (see eXo Platform documentation or {EXO_HOME}/bin/setenv.sh for more parameters).
 
-## Mail
+### Mail
 
 The following environment variables should be passed to the container in order to configure the mail server configuration to use :
 
@@ -54,11 +59,11 @@ The following environment variables should be passed to the container in order t
 | EXO_MAIL_SMTP_USERNAME | NO | - | authentication username for smtp server (if needed)
 | EXO_MAIL_SMTP_PASSWORD | NO | - | authentication password for smtp server (if needed)
 
-## How-to ...
+## How-to
 
 ### see eXo Platform logs
 
-```
+```bash
 # eXo Platform logs
 docker exec <CONTAINER_NAME> tail -f /var/log/exo/platform.log
 # MongoDB logs
@@ -69,7 +74,7 @@ docker exec <CONTAINER_NAME> tail -f /var/log/mongodb/mongod.log
 
 To install add-ons in the container, provide a commas separated list of add-ons you want to install in a `EXO_ADDONS_LIST` environment variable to the container:
 
-```
+```bash
 docker run -d \
     -p 8080:8080 \
     -e EXO_ADDONS_LIST="exo-answers:1.2.1,exo-web-pack:1.1.1" \
@@ -78,12 +83,11 @@ docker run -d \
 
 INFO: the provided add-ons list will be installed in the container during the container creation.
 
-
 ### list eXo Platform add-ons available
 
 In a *running container* execute the following command:
 
-```
+```bash
 docker exec <CONTAINER_NAME> /opt/exo/addon list
 ```
 
@@ -91,7 +95,7 @@ docker exec <CONTAINER_NAME> /opt/exo/addon list
 
 In a *running container* execute the following command:
 
-```
+```bash
 docker exec <CONTAINER_NAME> /opt/exo/addon list --installed
 ```
 
@@ -100,7 +104,7 @@ docker exec <CONTAINER_NAME> /opt/exo/addon list --installed
 For add-on development purpose, it could be useful to point the add-on manager to another catalog.
 You can use the ``EXO_ADDONS_CATALOG_URL`` environment variable for that :
 
-```
+```bash
 # Pointing to a remote catalog
 docker run -d -p 8080:8080 \
  -e EXO_ADDONS_CATALOG_URL="http://my.enterprise.com/catalog.json" \
@@ -119,7 +123,7 @@ docker run -d -p 8080:8080 \
 
 As explained in [eXo Platform documentation](https://www.exoplatform.com/docs/PLF50/PLFAdminGuide.InstallationAndStartup.CustomizingEnvironmentVariables.html) you can customize several aspects of eXo platform by settings environment variables :
 
-```
+```bash
 docker run -d \
     -p 8080:8080 \
     -e EXO_JVM_SIZE_MAX="8g" \
