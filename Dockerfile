@@ -15,7 +15,7 @@ FROM  exoplatform/base-jdk:jdk8
 LABEL maintainer="eXo Platform <docker@exoplatform.com>"
 
 # Environment variables
-ENV EXO_VERSION     5.1.0-M07
+ENV EXO_VERSION     5.1.0-M08
 ENV MONGO_VERSION   3.4
 ENV MONGO_REPO_KEY  0C49F3730359A14518585931BC711F9BA15703C6
 
@@ -55,8 +55,8 @@ RUN mkdir -p ${EXO_DATA_DIR}    && chown ${EXO_USER}:${EXO_GROUP} ${EXO_DATA_DIR
   && mkdir -p ${EXO_TMP_DIR}     && chown ${EXO_USER}:${EXO_GROUP} ${EXO_TMP_DIR} \
   && mkdir -p ${EXO_LOG_DIR}     && chown ${EXO_USER}:${EXO_GROUP} ${EXO_LOG_DIR} \
   && mkdir -p ${MONGO_DATA_DIR}  && chown mongodb:mongodb ${MONGO_DATA_DIR}
-  # && mkdir ${EXO_DATA_DIR}/.eXo/   && chown ${EXO_USER}:${EXO_GROUP} ${EXO_DATA_DIR}/.eXo \
-  # && ln -s ${EXO_DATA_DIR}/.eXo    /home/${EXO_USER}/.eXo \
+# && mkdir ${EXO_DATA_DIR}/.eXo/   && chown ${EXO_USER}:${EXO_GROUP} ${EXO_DATA_DIR}/.eXo \
+# && ln -s ${EXO_DATA_DIR}/.eXo    /home/${EXO_USER}/.eXo \
 
 # Install eXo Platform
 RUN EXO_VERSION_SHORT=$(echo ${EXO_VERSION} | awk -F "\." '{ print $1"."$2}'); \
@@ -76,22 +76,22 @@ USER root
 # Install Docker customization file
 ADD scripts/setenv-docker-customize.sh ${EXO_APP_DIR}/bin/setenv-docker-customize.sh
 RUN chmod 755 ${EXO_APP_DIR}/bin/setenv-docker-customize.sh \
-    && chown ${EXO_USER}:${EXO_USER} ${EXO_APP_DIR}/bin/setenv-docker-customize.sh \
-    && sed -i '/# Load custom settings/i \
-\# Load custom settings for docker environment\n\
-[ -r "$CATALINA_BASE/bin/setenv-docker-customize.sh" ] && { \n\
+  && chown ${EXO_USER}:${EXO_USER} ${EXO_APP_DIR}/bin/setenv-docker-customize.sh \
+  && sed -i '/# Load custom settings/i \
+  \# Load custom settings for docker environment\n\
+  [ -r "$CATALINA_BASE/bin/setenv-docker-customize.sh" ] && { \n\
   source $CATALINA_BASE/bin/setenv-docker-customize.sh \n\
   if [ $? != 0 ]; then \n\
-    echo "Problem during docker customization process ... startup aborted !" \n\
-    exit 1 \n\
+  echo "Problem during docker customization process ... startup aborted !" \n\
+  exit 1 \n\
   fi \n\
-} || echo "No Docker eXo Platform customization file : $CATALINA_BASE/bin/setenv-docker-customize.sh"\n\
-' ${EXO_APP_DIR}/bin/setenv.sh \
+  } || echo "No Docker eXo Platform customization file : $CATALINA_BASE/bin/setenv-docker-customize.sh"\n\
+  ' ${EXO_APP_DIR}/bin/setenv.sh \
   && grep 'setenv-docker-customize.sh' ${EXO_APP_DIR}/bin/setenv.sh
 
 COPY scripts/wait-for-it.sh /opt/wait-for-it.sh
 RUN chmod 755 /opt/wait-for-it.sh \
-    && chown ${EXO_USER}:${EXO_GROUP} /opt/wait-for-it.sh
+  && chown ${EXO_USER}:${EXO_GROUP} /opt/wait-for-it.sh
 
 # Add Configuration files
 
