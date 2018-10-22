@@ -19,7 +19,7 @@ replace_in_file() {
 
 # $1 : the full line content to insert at the end of eXo configuration file
 add_in_exo_configuration() {
-  local EXO_CONFIG_FILE="/etc/exo/exo.properties"
+  local EXO_CONFIG_FILE="/etc/exo/docker.properties"
   local P1="$1"
   if [ ! -f ${EXO_CONFIG_FILE} ]; then
     echo "Creating eXo configuration file [${EXO_CONFIG_FILE}]"
