@@ -15,7 +15,7 @@ FROM  exoplatform/base-jdk:jdk8
 LABEL maintainer="eXo Platform <docker@exoplatform.com>"
 
 # Environment variables
-ENV EXO_VERSION     5.1.1
+ENV EXO_VERSION     5.1.2
 ENV MONGO_VERSION   3.6
 ENV MONGO_REPO_KEY  2930ADAE8CAF5059EE73BB4B58712A2291FA4AD5
 
