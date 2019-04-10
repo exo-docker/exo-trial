@@ -2,6 +2,8 @@
 #
 # Start eXo Platform trial edition
 
+. /etc/envvars
+
 if [ ! -d ${EXO_DATA_DIR} ]; then
   echo "# Creating eXo data directory : ${EXO_DATA_DIR}" | tee -a /var/log/exo/platform.log
   mkdir -p ${EXO_DATA_DIR}
@@ -32,8 +34,8 @@ echo "# - the mongodb is not secured" | tee -a /var/log/exo/platform.log
 echo "# -------------------------------------------------------- #" | tee -a /var/log/exo/platform.log
 echo "# -------------------------------------------------------- #" | tee -a /var/log/exo/platform.log
 echo "# List of add-ons already installed:" | tee -a /var/log/exo/platform.log
-/sbin/setuser ${EXO_USER} /opt/exo/addon list --installed 2>&1 | tee -a /var/log/exo/platform.log
+/usr/local/bin/gosu ${EXO_USER} /opt/exo/addon list --installed 2>&1 | tee -a /var/log/exo/platform.log
 echo "# -------------------------------------------------------- #" | tee -a /var/log/exo/platform.log
 echo "# -------------------------------------------------------- #" | tee -a /var/log/exo/platform.log
 
-exec /sbin/setuser ${EXO_USER} /opt/exo/start_eXo.sh --data /srv/exo
+exec /usr/local/bin/gosu ${EXO_USER} /opt/exo/start_eXo.sh --data /srv/exo

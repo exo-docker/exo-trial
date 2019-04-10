@@ -261,8 +261,7 @@ else
 
   # Mongodb configuration (for the Chat)
   add_in_chat_configuration "# eXo Chat mongodb configuration"
-  add_in_chat_configuration "dbServerHost=${EXO_MONGO_HOST}"
-  add_in_chat_configuration "dbServerPort=${EXO_MONGO_PORT}"
+  add_in_chat_configuration "dbServerHosts=${EXO_MONGO_HOST}:${EXO_MONGO_PORT}"
   add_in_chat_configuration "dbName=${EXO_MONGO_DB_NAME}"
   if [ "${EXO_MONGO_USERNAME:-}" = "-" ]; then
     add_in_chat_configuration "dbAuthentication=false"
@@ -287,7 +286,7 @@ else
   # The number of messages that you can get in the Chat room.
   add_in_chat_configuration "chatReadTotalJson=200"
   # We must override this to remain inside the docker container (works only for embedded chat server)
-  add_in_chat_configuration "chatServerBase=http://localhost:8080"
+  add_in_chat_configuration "chatServerUrl=http://localhost:8080/chatServer"
 
   add_in_chat_configuration "# eXo Chat client configuration"
   # Time interval to refresh messages in a chat.
@@ -382,6 +381,6 @@ CATALINA_OPTS="${CATALINA_OPTS:-} -Djava.security.egd=file:/dev/./urandom"
 
 # Wait for mongodb availability (if chat is installed)
 echo "Waiting for mongodb availability at ${EXO_MONGO_HOST}:${EXO_MONGO_PORT} ..."
-/opt/wait-for-it.sh ${EXO_MONGO_HOST}:${EXO_MONGO_PORT} -s -t 60
+wait-for ${EXO_MONGO_HOST}:${EXO_MONGO_PORT} -s -t 60
 
 set +u		# DEACTIVATE unbound variable check
