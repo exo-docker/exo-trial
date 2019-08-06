@@ -16,6 +16,7 @@ LABEL maintainer="eXo Platform <docker@exoplatform.com>"
 
 # Environment variables
 ENV EXO_VERSION     5.3.0-M17
+ENV CHAT_VERSION    2.3.0-M17
 ENV MONGO_VERSION   4.0
 ENV MONGO_REPO_KEY  9DA31620334BD75D9DCB49F368818C72E52529D4
 
@@ -28,6 +29,8 @@ ENV MONGO_DATA_DIR  /srv/mongodb
 
 ENV EXO_USER exo
 ENV EXO_GROUP ${EXO_USER}
+# allow to override the list of addons to package by default
+ARG ADDONS="exo-chat:${CHAT_VERSION}"
 
 # Customise system
 RUN rm -f /bin/sh && ln -s /bin/bash /bin/sh
@@ -57,11 +60,11 @@ RUN mkdir -p ${EXO_DATA_DIR}    && chown ${EXO_USER}:${EXO_GROUP} ${EXO_DATA_DIR
 
 # Install eXo Platform
 RUN EXO_VERSION_SHORT=$(echo ${EXO_VERSION} | awk -F "\." '{ print $1"."$2}'); \
-  DOWNLOAD_URL="https://downloads.exoplatform.org/public/releases/platform/${EXO_VERSION_SHORT}/${EXO_VERSION}/platform-trial-${EXO_VERSION}.zip"; \
-  curl -L -o /srv/downloads/eXo-Platform-trial-${EXO_VERSION}.zip ${DOWNLOAD_URL} \
-  && unzip -q /srv/downloads/eXo-Platform-trial-${EXO_VERSION}.zip -d /srv/downloads/ \
-  && rm -f /srv/downloads/eXo-Platform-trial-${EXO_VERSION}.zip \
-  && mv /srv/downloads/platform-${EXO_VERSION}-trial ${EXO_APP_DIR} \
+  DOWNLOAD_URL="https://downloads.exoplatform.org/public/releases/platform/${EXO_VERSION_SHORT}/${EXO_VERSION}/platform-${EXO_VERSION}.zip"; \
+  curl -L -o /srv/downloads/eXo-Platform-${EXO_VERSION}.zip ${DOWNLOAD_URL} \
+  && unzip -q /srv/downloads/eXo-Platform-${EXO_VERSION}.zip -d /srv/downloads/ \
+  && rm -f /srv/downloads/eXo-Platform-${EXO_VERSION}.zip \
+  && mv /srv/downloads/platform-${EXO_VERSION} ${EXO_APP_DIR} \
   && chown -R ${EXO_USER}:${EXO_GROUP} ${EXO_APP_DIR} \
   && ln -s ${EXO_APP_DIR}/gatein/conf /etc/exo \
   && rm -rf ${EXO_APP_DIR}/logs && ln -s ${EXO_LOG_DIR} ${EXO_APP_DIR}/logs
