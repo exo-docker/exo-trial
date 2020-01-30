@@ -15,8 +15,8 @@ FROM  exoplatform/jdk:8-ubuntu-1804
 LABEL maintainer="eXo Platform <docker@exoplatform.com>"
 
 # Environment variables
-ENV EXO_VERSION     6.0.0-M16
-ENV CHAT_VERSION    3.0.0-M16
+ENV EXO_VERSION     6.0.0-M17
+ENV CHAT_VERSION    3.0.0-M17
 ENV MONGO_VERSION   4.0
 ENV MONGO_REPO_KEY  9DA31620334BD75D9DCB49F368818C72E52529D4
 
