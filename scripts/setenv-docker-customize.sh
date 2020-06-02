@@ -187,6 +187,7 @@ else
 
   # Upload size
   add_in_exo_configuration "exo.ecms.connector.drives.uploadLimit=${EXO_UPLOAD_MAX_FILE_SIZE}"
+  add_in_exo_configuration "exo.social.activity.uploadLimit=${EXO_UPLOAD_MAX_FILE_SIZE}"
 
   # Mail configuration
   add_in_exo_configuration "# Mail configuration"
